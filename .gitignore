@@ -2,3 +2,7 @@
 *.class
 *.class
 *.svn-base
+.svn/entries
+.svn/entries
+.svn/format
+.svn/wc.db
