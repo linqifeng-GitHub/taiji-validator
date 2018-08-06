@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<project name="taiji-validator" basedir="." default="copy-jar">
+
+	<property name="repository1.dir" value="../TJLib1" />
+	<property name="repository.dir" value="../TJLib" />
+	<property name="target.dir" value="target" />
+	<property name="classes.dir" value="target/classes" />
+	<property name="taijiLib1.dir" value="${repository1.dir}/lib/taiji/common" />
+	<property name="taijiLib.dir" value="${repository.dir}/lib/taiji/common" />
+
+	<target name="copy-jar">
+		<copy todir="${taijiLib.dir}" preservelastmodified="true">
+			<fileset dir="${target.dir}/">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${taijiLib1.dir}" preservelastmodified="true">
+			<fileset dir="${target.dir}/">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+</project>
