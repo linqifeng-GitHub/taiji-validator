@@ -1,5 +1,5 @@
 # taiji-validator
-请各位大神一块完善系统功能
+请各位大神一块完善系统功能<br/>
 https://github.com/linqifeng-GitHub/taiji-validator
 太极计算机股份有限公司基于JSR303标准扩展开发的注解式校验工具，支持身份证号、车辆VIN、等等
 例如：
