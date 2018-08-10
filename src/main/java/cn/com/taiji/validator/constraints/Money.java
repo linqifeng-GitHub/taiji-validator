@@ -16,6 +16,7 @@ import cn.com.taiji.validator.constraintvalidation.MoneyValidator;
  * @AUTHOR 林奇峰
  * @EMAIL linqf@mail.taiji.com.cn
  * @DEPARTMENT 交通信息系统事业部
+ * 金额
  */
 
 @Target({ ElementType.FIELD, ElementType.METHOD })

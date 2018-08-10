@@ -17,6 +17,7 @@ import cn.com.taiji.validator.constraintvalidation.MatchesValidator;
  * @AUTHOR 林奇峰
  * @EMAIL linqf@mail.taiji.com.cn
  * @DEPARTMENT 交通信息系统事业部
+ * 两个字段一致
  */
 
 @Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })

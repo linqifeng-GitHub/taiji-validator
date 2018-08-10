@@ -24,6 +24,8 @@ import cn.com.taiji.validator.constraintvalidation.IdCardNumberValidator;
  * @AUTHOR 林奇峰
  * @EMAIL linqf@mail.taiji.com.cn
  * @DEPARTMENT 交通信息系统事业部
+ * 
+ * 身份证
  */
 
 @Target({ ElementType.FIELD, ElementType.METHOD })
