@@ -24,7 +24,7 @@ import cn.com.taiji.validator.constraintvalidation.MoneyValidator;
 @Constraint(validatedBy = MoneyValidator.class)
 public @interface Money {
 
-	String message() default "不是金额形式";
+	String message() default "javax.validation.constraints.Money.message";
 
 	Class<?>[] groups() default {};
 

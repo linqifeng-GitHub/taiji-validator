@@ -25,7 +25,7 @@ import cn.com.taiji.validator.constraintvalidation.MatchesValidator;
 @Constraint(validatedBy = { MatchesValidator.class })
 @Documented
 public @interface Matches {
-	String message() default "{constraint.not.matches}";
+	String message() default "{javax.validation.constraints.Matches.message}";
 
 	Class<?>[] groups() default {};
 

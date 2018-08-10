@@ -4,7 +4,7 @@ import cn.com.taiji.validator.constraints.VIN;
 
 public class Car {
 	
-	@VIN(message="VIN格式不正确")
+	@VIN
 	private String VIN;
 	private String plateNum;
 	

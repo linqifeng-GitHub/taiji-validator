@@ -24,7 +24,7 @@ import cn.com.taiji.validator.constraintvalidation.VINValidator;
 @Constraint(validatedBy = VINValidator.class)
 public @interface VIN {
 
-	String message() default "不是金额形式";
+	String message() default "javax.validation.constraints.VIN.message";
 
 	Class<?>[] groups() default {};
 

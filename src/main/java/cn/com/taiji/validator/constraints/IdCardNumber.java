@@ -33,7 +33,7 @@ import cn.com.taiji.validator.constraintvalidation.IdCardNumberValidator;
 @Constraint(validatedBy = { IdCardNumberValidator.class })
 public @interface IdCardNumber {
 
-	String message() default "{constraint.not.IdCardNumber}";
+	String message() default "{javax.validation.constraints.IdCardNumber.message}";
 
 	Class<?>[] groups() default {};
 

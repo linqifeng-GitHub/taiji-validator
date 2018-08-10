@@ -25,7 +25,7 @@ import cn.com.taiji.validator.constraintvalidation.CreditCodeValidator;
 @Constraint(validatedBy = CreditCodeValidator.class)
 public @interface CreditCode {
 
-	String message() default "统一社会信用代码格式不正确";
+	String message() default "javax.validation.constraints.IdCardNumber.message";
 
 	Class<?>[] groups() default {};
 
