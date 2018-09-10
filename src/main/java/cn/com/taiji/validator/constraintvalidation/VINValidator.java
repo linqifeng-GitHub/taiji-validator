@@ -34,6 +34,9 @@ public class VINValidator implements ConstraintValidator<VIN, String> {
      * @return
      */
     public  boolean checkVIN(String vin) {
+    	if(vin==null){
+    		return false;
+    	}
         Map<Integer, Integer> vinMapWeighting = null;
         Map<Character, Integer> vinMapValue = null;
         vinMapWeighting = new HashMap<Integer, Integer>();

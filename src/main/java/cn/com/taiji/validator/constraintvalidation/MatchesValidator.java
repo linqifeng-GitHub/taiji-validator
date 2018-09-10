@@ -26,6 +26,7 @@ public class MatchesValidator implements ConstraintValidator<Matches, Object> {
 		this.verifyField = matches.verifyField();
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		try {
 			String fieldValue = BeanUtils.getProperty(value, field);
@@ -39,7 +40,7 @@ public class MatchesValidator implements ConstraintValidator<Matches, Object> {
 			if (!match) {
 				String messageTemplate = context.getDefaultConstraintMessageTemplate();
 				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate(messageTemplate).addPropertyNode(verifyField).addConstraintViolation();
+				context.buildConstraintViolationWithTemplate(messageTemplate).addNode(verifyField).addConstraintViolation();
 			}
 			return match;
 		} catch (IllegalAccessException e) {

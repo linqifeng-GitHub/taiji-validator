@@ -10,7 +10,10 @@ import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import cn.com.taiji.validator.constraints.IdCardNumber;
+import org.apache.commons.beanutils.BeanUtils;
+import org.junit.Test;
+
+import cn.com.taiji.validator.constraints.Identification;
 
 /**
  * 2017年7月4日
@@ -19,26 +22,83 @@ import cn.com.taiji.validator.constraints.IdCardNumber;
  * @EMAIL linqf@mail.taiji.com.cn
  * @DEPARTMENT 交通信息系统事业部
  */
-public class IdCardNumberValidator implements ConstraintValidator<IdCardNumber, String> {
+public class IdentificationValidator implements ConstraintValidator<Identification, Object> {
 
-	public void initialize(IdCardNumber constraintAnnotation) {
-		// TODO Auto-generated method stub
-
+	private String idTypeField;
+	private String idCardField;
+	//台胞证
+	private String taibaoCardReg = "^\\d{8}$";//表示台胞证的正则表达式
+    private Pattern taibaoCardPattern = Pattern.compile(taibaoCardReg); 
+    //回乡证
+    private String returnHomeCardReg = "^[H|M]{1}\\d{10}$";//表示回乡证的正则表达式
+    private Pattern returnHomeCardPattern = Pattern.compile(returnHomeCardReg); 
+    //护照
+    private String passportReg = "^(P\\d{7}|G\\d{8}|S\\d{7,8}|D\\d+|1[4,5]\\d{7})$";//表示护照的正则表达式
+    private Pattern passportRegPattern = Pattern.compile(passportReg); 
+    //居住证
+    private String residencePermitReg = "^[A-Z0-9]{1,}$";//表示居住证的正则表达式
+    private Pattern residencePermitPattern = Pattern.compile(residencePermitReg); 
+    //港澳通行证
+    private String hkmopassReg = "/^[HMhm]{1}([0-9]{10}|[0-9]{8})$/";//表示港澳通行证的正则表达式
+    private Pattern hkmopassPattern = Pattern.compile(hkmopassReg);
+    @Test
+    public  void test()
+	{
+    	String residencePermitReg = "^[A-Z0-9]{1,}$";
+    	String idCardNumber = "P11111111";
+    	System.out.println(idCardNumber.matches(residencePermitReg));
+	}
+    
+	public void initialize(Identification constraintAnnotation) {
+		this.idTypeField = constraintAnnotation.idTypeField();
+		this.idCardField = constraintAnnotation.idCardField();
 	}
 
-	public boolean isValid(String idCardNumber, ConstraintValidatorContext arg1) {
-		if (idCardNumber.length() == 15) {
-			idCardNumber = convertIdcarBy15bit(idCardNumber);
+	@SuppressWarnings("deprecation")
+	public boolean isValid(Object value, ConstraintValidatorContext context) {
+		boolean flag = isValid2(value,context);;
+		if (!flag) {
+			String messageTemplate = context.getDefaultConstraintMessageTemplate();
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(messageTemplate).addNode(idTypeField).addConstraintViolation();
+			context.buildConstraintViolationWithTemplate(messageTemplate).addNode(idCardField).addConstraintViolation();
 		}
-
-		return isValidate18Idcard(idCardNumber);
+		return flag;
 	}
-	public boolean isValid(String idCardNumber) {
-		if (idCardNumber.length() == 15) {
-			idCardNumber = convertIdcarBy15bit(idCardNumber);
+	
+	public boolean isValid2(Object value, ConstraintValidatorContext context) {
+		try
+		{
+			String idTypeFieldValue = BeanUtils.getProperty(value, idTypeField);
+			String idCardFieldValue = BeanUtils.getProperty(value, idCardField);
+			if (idTypeFieldValue == null || idCardFieldValue==null)  {
+				return true;  
+			}
+			if("IDCARD".equals(idTypeFieldValue))
+			{
+				IdCardNumberValidator idCardNumberValidator = new IdCardNumberValidator();
+				return idCardNumberValidator.isValid(idCardFieldValue, context);
+			}else if("TAIBAOCARD".equals(idTypeFieldValue))
+			{
+				return taibaoCardPattern.matcher(idCardFieldValue).matches();
+			}else if("RETURNHOMECARD".equals(idTypeFieldValue))
+			{
+				return returnHomeCardPattern.matcher(idCardFieldValue).matches();
+			}else if("PASSPORT".equals(idTypeFieldValue))
+			{
+				return passportRegPattern.matcher(idCardFieldValue).matches();
+			}else if("RESIDENCEPERMIT".equals(idTypeFieldValue))
+			{
+				return residencePermitPattern.matcher(idCardFieldValue).matches();
+			}else if("HKMOPASS".equals(idTypeFieldValue))
+			{
+				return hkmopassPattern.matcher(idCardFieldValue).matches();
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
 		}
-		
-		return isValidate18Idcard(idCardNumber);
+		return false;
 	}
 
 	/**
@@ -408,4 +468,26 @@ public class IdCardNumberValidator implements ConstraintValidator<IdCardNumber, 
 		}
 		return a;
 	}
+
+	public String getIdTypeField()
+	{
+		return idTypeField;
+	}
+
+	public void setIdTypeField(String idTypeField)
+	{
+		this.idTypeField = idTypeField;
+	}
+
+	public String getIdCardField()
+	{
+		return idCardField;
+	}
+
+	public void setIdCardField(String idCardField)
+	{
+		this.idCardField = idCardField;
+	}
+
+
 }
